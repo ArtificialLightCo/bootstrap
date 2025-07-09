@@ -2,7 +2,7 @@
 
 cd /var/www/artificiallightco/store
 
-cat > index.html <<EOF
+cat <<EOF > index.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,4 +23,22 @@ cat > index.html <<EOF
   </style>
 </head>
 <body>
-  <h1>🛒 Artificial
+  <h1>🛒 ArtificialLightCo Digital Store</h1>
+
+  <div class="product">
+    <h2>🧠 AI Productivity Toolkit</h2>
+    <p>Dominate your day with psychology-based routines.</p>
+    <a href="#">Download Now</a>
+  </div>
+
+  <div class="product">
+    <h2>🔥 Fitness Habit Hacker Bundle</h2>
+    <p>Train smarter, not harder — with AI-personalized fitness.</p>
+    <a href="#">Get Access</a>
+  </div>
+
+</body>
+</html>
+EOF
+
+systemctl reload nginx
