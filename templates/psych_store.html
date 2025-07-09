@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ArtificialLightCo Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
+    header { background: black; color: white; padding: 1rem; text-align: center; }
+    .banner { background: #f8f8f8; padding: 1rem; text-align: center; }
+    .product { border-bottom: 1px solid #ddd; padding: 1rem; }
+    .product h2 { margin: 0; }
+    .cta { position: sticky; bottom: 0; background: #ff3366; color: white; text-align: center; padding: 1rem; font-weight: bold; }
+    .countdown { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔥 ArtificialLightCo: Mind-Hacking Digital Tools</h1>
+  </header>
+  <div class="banner">
+    🎁 Free Productivity Booster Pack for new customers — <span class="countdown" id="countdown">03:00</span> left!
+  </div>
+  <div class="product">
+    <h2>🧠 Mental Clarity Toolkit</h2>
+    <p>Unlock focused flow states with science-backed tools. Includes multilingual affirmations, planners, & audio triggers.</p>
+    <button onclick="location.href='/downloads/sample.txt'">Download Free Sample</button>
+  </div>
+  <div class="cta">
+    Upgrade Now — Limited-Time Bundle ⚡
+  </div>
+  <script>
+    let sec = 180;
+    const el = document.getElementById("countdown");
+    setInterval(() => {
+      const m = Math.floor(sec / 60), s = sec % 60;
+      el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+      if (--sec < 0) sec = 180;
+    }, 1000);
+  </script>
+</body>
+</html>
