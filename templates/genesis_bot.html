@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Genesis Prime Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .message.system {
+            background: rgba(52, 73, 94, 0.1);
+            color: #34495e;
+            text-align: center;
+            font-style: italic;
+            max-width: 100%;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: #3498db;
+        }
+
+        .chat-input button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff3366, #ff6b6b);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.4);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .typing-indicator {
+            display: none;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .typing-indicator.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .chat-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Genesis Control Center</a>
+        
+        <div class="header">
+            <h1>🤖 Genesis Prime Bot</h1>
+            <div class="status">✅ AI Assistant Online - Ready to Help</div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    🤖 Genesis Prime Bot initialized. How can I assist you today?
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                Genesis AI is thinking...
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Ask me anything about Genesis AI, products, or platform features..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Sample responses for different topics
+        const responses = {
+            'genesis': [
+                "Genesis AI is our advanced neural network system that powers the entire platform. It coordinates all AI operations and ensures optimal performance.",
+                "The Genesis network consists of multiple AI nodes working in harmony to provide seamless user experiences and intelligent automation.",
+                "Genesis AI is constantly learning and evolving, adapting to user behavior and optimizing platform performance in real-time."
+            ],
+            'product': [
+                "Our digital products are designed using advanced psychology principles and AI optimization. Each product is crafted to maximize user engagement and results.",
+                "We offer several premium digital products including the Mental Clarity Toolkit, Fitness Habit Hacker Bundle, and AI Productivity Suite.",
+                "All products come with lifetime access and regular updates. They're designed to work synergistically for maximum impact."
+            ],
+            'platform': [
+                "The Genesis platform is built on cutting-edge technology with real-time analytics, secure vault storage, and AI-powered automation.",
+                "Our platform features include the Genesis Control Center dashboard, AI bot assistance, swarm traffic monitoring, and secure vault access.",
+                "The platform is designed for scalability and can handle thousands of concurrent users while maintaining optimal performance."
+            ],
+            'default': [
+                "I'm analyzing your request through the Genesis AI network...",
+                "Processing your query with advanced neural pathways...",
+                "The Genesis swarm is coordinating your response...",
+                "AI optimization complete. Here's your solution...",
+                "Neural network consensus reached. Proceeding with execution..."
+            ]
+        };
+
+        function addMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            typingIndicator.classList.add('show');
+        }
+
+        function hideTyping() {
+            typingIndicator.classList.remove('show');
+        }
+
+        function getBotResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('genesis') || lowerMessage.includes('ai')) {
+                return responses.genesis[Math.floor(Math.random() * responses.genesis.length)];
+            } else if (lowerMessage.includes('product') || lowerMessage.includes('buy') || lowerMessage.includes('purchase')) {
+                return responses.product[Math.floor(Math.random() * responses.product.length)];
+            } else if (lowerMessage.includes('platform') || lowerMessage.includes('system') || lowerMessage.includes('dashboard')) {
+                return responses.platform[Math.floor(Math.random() * responses.platform.length)];
+            } else {
+                return responses.default[Math.floor(Math.random() * responses.default.length)];
+            }
+        }
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            messageInput.value = '';
+
+            // Show typing indicator
+            showTyping();
+
+            // Simulate AI processing time
+            setTimeout(() => {
+                hideTyping();
+                
+                // Get bot response
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 1500 + Math.random() * 1000);
+        }
+
+        // Allow Enter key to send message
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Focus on input when page loads
+        messageInput.focus();
+
+        // Add welcome message after a short delay
+        setTimeout(() => {
+            addMessage("I can help you with information about Genesis AI, our products, platform features, or any other questions you might have.", 'bot');
+        }, 1000);
+    </script>
+</body>
+</html>

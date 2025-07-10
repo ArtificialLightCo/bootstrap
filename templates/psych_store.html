@@ -2,33 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ArtificialLightCo Store</title>
+  <title>🔥 ArtificialLightCo: Mind-Hacking Digital Tools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
-    header { background: black; color: white; padding: 1rem; text-align: center; }
-    .banner { background: #f8f8f8; padding: 1rem; text-align: center; }
-    .product { border-bottom: 1px solid #ddd; padding: 1rem; }
-    .product h2 { margin: 0; }
-    .cta { position: sticky; bottom: 0; background: #ff3366; color: white; text-align: center; padding: 1rem; font-weight: bold; }
-    .countdown { color: red; font-weight: bold; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header { 
+      background: rgba(0, 0, 0, 0.9);
+      color: white; 
+      padding: 2rem; 
+      text-align: center;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .banner { 
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1.5rem; 
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product { 
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 2rem; 
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    
+    .product h2 { 
+      margin: 0 0 1rem 0;
+      color: #2c3e50;
+      font-size: 1.5rem;
+    }
+    
+    .product p {
+      margin-bottom: 1.5rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-bottom: 1rem;
+    }
+    
+    .btn {
+      background: linear-gradient(45deg, #ff3366, #ff6b6b);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 51, 102, 0.4);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(45deg, #3498db, #2980b9);
+    }
+    
+    .cta { 
+      position: sticky; 
+      bottom: 0; 
+      background: linear-gradient(45deg, #ff3366, #ff6b6b);
+      color: white; 
+      text-align: center; 
+      padding: 1.5rem; 
+      font-weight: bold;
+      border-radius: 15px;
+      margin-top: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .countdown { 
+      color: #ffeb3b; 
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🔥 ArtificialLightCo: Mind-Hacking Digital Tools</h1>
-  </header>
-  <div class="banner">
-    🎁 Free Productivity Booster Pack for new customers — <span class="countdown" id="countdown">03:00</span> left!
+  <div class="container">
+    <a href="/" class="back-link">← Back to Genesis Control Center</a>
+    
+    <header>
+      <h1>🔥 ArtificialLightCo: Mind-Hacking Digital Tools</h1>
+      <p>AI-Powered Psychology-Based Digital Products</p>
+    </header>
+    
+    <div class="banner">
+      🎁 Free Productivity Booster Pack for new customers — <span class="countdown" id="countdown">03:00</span> left!
+    </div>
+    
+    {% for product in products %}
+    <div class="product">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <div class="price">${{ "%.2f"|format(product.price) }}</div>
+      <a href="{{ product.download_url }}" class="btn">Download Now</a>
+      <a href="#" class="btn btn-secondary" style="margin-left: 10px;">Learn More</a>
+    </div>
+    {% endfor %}
+    
+    <div class="cta">
+      ⚡ Upgrade Now — Limited-Time Bundle Available ⚡
+    </div>
   </div>
-  <div class="product">
-    <h2>🧠 Mental Clarity Toolkit</h2>
-    <p>Unlock focused flow states with science-backed tools. Includes multilingual affirmations, planners, & audio triggers.</p>
-    <button onclick="location.href='/downloads/sample.txt'">Download Free Sample</button>
-  </div>
-  <div class="cta">
-    Upgrade Now — Limited-Time Bundle ⚡
-  </div>
+  
   <script>
     let sec = 180;
     const el = document.getElementById("countdown");
@@ -37,6 +174,16 @@
       el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
       if (--sec < 0) sec = 180;
     }, 1000);
+    
+    // Add purchase tracking
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (this.textContent === 'Learn More') {
+          e.preventDefault();
+          alert('Detailed product information coming soon! 🚀');
+        }
+      });
+    });
   </script>
 </body>
 </html>
